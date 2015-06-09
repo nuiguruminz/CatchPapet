@@ -1,55 +1,4 @@
-//#include<windows.h>
-//#include <GL/glut.h>
-//
-//
-//#define Title "Catch Papet"
-//RECT recDisplay;
-//
-//void display(void)
-//{
-//	glClear(GL_COLOR_BUFFER_BIT);
-//	glFlush();
-//}
-//
-//void resize(int w, int h)
-//{
-//	/* ウィンドウ全体をビューポートにする */
-//	glViewport(0, 0, w, h);
-//
-//	/* 変換行列の初期化 */
-//	glLoadIdentity();
-//
-//	/* スクリーン上の表示領域をビューポートの大きさに比例させる */
-//	glOrtho(-w / 200.0, w / 200.0, -h / 200.0, h / 200.0, -1.0, 1.0);
-//}
-//
-//void init(void)
-//{
-//	//ディスプレイの塗りつぶし
-//	glClearColor(0.0, 0.0, 1.0, 1.0);
-//}
-//
-//
-//int main(int argc, char *argv[])
-//{
-//	HWND	hWnd, hDeskWnd;
-//
-//	hDeskWnd = GetDesktopWindow();
-//	GetWindowRect(hDeskWnd, &recDisplay);
-//
-//	glutInitWindowPosition(recDisplay.left, recDisplay.top); //表示箇所 //あとで修正sumiya
-//	glutInitWindowSize(recDisplay.right, recDisplay.bottom); //ウィンドウズサイズ //修正sumiya
-//	glutInit(&argc, argv);
-//	glutInitDisplayMode(GLUT_RGBA);
-//	glutCreateWindow(Title);
-//	glutDisplayFunc(display);
-//	glutReshapeFunc(resize);
-//	init();
-//	glutMainLoop();
-//	return 0;
-//}
-//
-///*
+#pragma region refarence
 //glut 関数一覧
 ////void glutInit(int *argcp, char **argv)
 //--GLUT および OpenGL 環境を初期化します.
@@ -95,15 +44,20 @@
 //--ひんぱんに glFlush() を呼び出すと, かえって描画速度が低下します.
 //*/
 //
+#pragma endregion
+
 #pragma comment(linker, "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
 #pragma comment(lib,"glew32.lib")
 #include <GL/glew.h>
 #include <GL/freeglut.h>
+#include <stdio.h>
 #include "OBJ.h"
 #include "menuDisplay.h"
 #include "keyBoard.h"
 #include "menuIdle.h"
 #include "Init.h"
+#include <windows.h>
+//#include <GL/glut.h>
 
 #define WIDTH 640
 #define HEIGHT 480
@@ -120,16 +74,38 @@ float angle0 = 0.0f;
 float angle1 = 0.0f;
 float angle2 = 0.0f;
 
+#define Title "Catch Papet"
+RECT recDisplay;
+
 MODEL* model;
+
+
+void resize(int w, int h)
+{
+	/* ウィンドウ全体をビューポートにする */
+	glViewport(0, 0, w, h);
+
+	/* 変換行列の初期化 */
+	glLoadIdentity();
+
+	/* スクリーン上の表示領域をビューポートの大きさに比例させる */
+	glOrtho(-w / 200.0, w / 200.0, -h / 200.0, h / 200.0, -1.0, 1.0);
+}
 
 int main(int argc, char *argv[])
 {
-	glutInitWindowPosition(100, 100);
-	glutInitWindowSize(WIDTH, HEIGHT);
+	//画面サイズを取得
+	HWND	hWnd, hDeskWnd;
+	hDeskWnd = GetDesktopWindow();
+	GetWindowRect(hDeskWnd, &recDisplay);
+
+	glutInitWindowPosition(recDisplay.left, recDisplay.top); //表示箇所 //あとで修正sumiya
+	glutInitWindowSize(recDisplay.right, recDisplay.bottom); //ウィンドウズサイズ //修正sumiya
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
-	glutCreateWindow("OBJローダ");
-	glutDisplayFunc(menudisplay);
+	glutCreateWindow(Title);
+	glutDisplayFunc(menudisplay); //menudisplay or field
+	glutReshapeFunc(resize);
 	glutIdleFunc(menuidle);
 	//if (flagT!=3)glutIdleFunc(translateidle);
 	Init();
