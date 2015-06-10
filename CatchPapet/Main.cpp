@@ -57,7 +57,6 @@
 #include "menuIdle.h"
 #include "Init.h"
 #include <windows.h>
-//#include <GL/glut.h>
 
 #define WIDTH 640
 #define HEIGHT 480
@@ -94,18 +93,32 @@ void resize(int w, int h)
 
 int main(int argc, char *argv[])
 {
-	//画面サイズを取得
-	HWND	hWnd, hDeskWnd;
-	hDeskWnd = GetDesktopWindow();
-	GetWindowRect(hDeskWnd, &recDisplay);
+	////画面サイズを取得
+	//HWND	hWnd, hDeskWnd;
+	//hDeskWnd = GetDesktopWindow();
+	//GetWindowRect(hDeskWnd, &recDisplay);
 
-	glutInitWindowPosition(recDisplay.left, recDisplay.top); //表示箇所 //あとで修正sumiya
-	glutInitWindowSize(recDisplay.right, recDisplay.bottom); //ウィンドウズサイズ //修正sumiya
+	//glutInitWindowPosition(recDisplay.left, recDisplay.top); //表示箇所 //あとで修正sumiya
+	//glutInitWindowSize(recDisplay.right, recDisplay.bottom); //ウィンドウズサイズ //修正sumiya
+
+	int nMode = 0;
+	DEVMODE devMode;
+	HWND hWnd;
+
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	glutCreateWindow(Title);
 	glutDisplayFunc(menudisplay); //menudisplay or field
 	glutReshapeFunc(resize);
+	hWnd = GetActiveWindow();
+	while (EnumDisplaySettings(NULL, nMode++, &devMode)){
+		if (devMode.dmPelsWidth != WIDTH || devMode.dmPelsHeight != HEIGHT)continue;
+		if (devMode.dmBitsPerPel != 32)continue;
+		if (ChangeDisplaySettings(&devMode, CDS_TEST) == DISP_CHANGE_SUCCESSFUL)break;
+	}
+	ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
+	glutFullScreen();
 	glutIdleFunc(menuidle);
 	//if (flagT!=3)glutIdleFunc(translateidle);
 	Init();
