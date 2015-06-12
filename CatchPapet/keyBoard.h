@@ -1,5 +1,5 @@
 //#include <GL/glut.h>
-#include <stdio.h>
+//#include <stdio.h>
 
 #define MAXPOINTS 100      /* 記憶する点の数　　 */
 #define ESCKEY 27

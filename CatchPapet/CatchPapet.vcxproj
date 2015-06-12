@@ -65,15 +65,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="field.h" />
+    <ClInclude Include="FieldIdle.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="keyBoard.h" />
     <ClInclude Include="menuDisplay.h" />
     <ClInclude Include="menuIdle.h" />
     <ClInclude Include="OBJ.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
