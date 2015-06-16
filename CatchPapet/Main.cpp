@@ -58,38 +58,47 @@
 #include "menuIdle.h"
 #include "Init.h"
 #include <windows.h>
-<<<<<<< HEAD
+#include "SceneMgr.h"
+#include "Menu.h"
+//<<<<<<< HEAD
 #include <mmsystem.h> //音楽再生用
 #include "InitMusic.h"
 //#include <GL/glut.h>
 //#define WIDTH 640
 //#define HEIGHT 480
-HWND	hWnd, hDeskWnd = GetDesktopWindow();
+//HWND	hWnd, hDeskWnd = GetDesktopWindow();
 RECT recDisplay;
 
 MCI_OPEN_PARMS mop0; //音楽再生用
 MCI_OPEN_PARMS mop; //音楽再生用
-=======
->>>>>>> 24f2c582fd8eb5cb861cdfb6b47224ba73cc6af7
+//=======
+//>>>>>>> 24f2c582fd8eb5cb861cdfb6b47224ba73cc6af7
 
+#define WIDTH 640
+#define HEIGHT 480
+#define CENTER 0 //後で修正
 //平行移動用
-float x0 = recDisplay.right / 2;
-float x1 = recDisplay.right / 2;
-float x2 = recDisplay.right / 2;
-float x3 = recDisplay.right / 2 + 1000;
-float x4 = recDisplay.right / 2 + 1000;
-float x5 = recDisplay.right / 2 + 1000;
+#define TONARI 500
+float x0 = CENTER;
+float x1 = CENTER;
+float x2 = CENTER;
+float x3 = CENTER + TONARI;
+float x4 = CENTER + TONARI;
+float x5 = CENTER + TONARI;
 int flagT = 3;
-#define WCENTER recDisplay.right/2
+int flagBack = 0;
+int flagSpace = 0;
 
 float angle0 = 0.0f;
 float angle1 = 0.0f;
 float angle2 = 0.0f;
 
 #define Title "Catch Papet"
-//RECT recDisplay; //上に移動
 
 MODEL* model;
+
+int NowSelect = eMenu_Play;   //現在の選択状態(初期は選択中)
+int NowScene = eScene_Menu; //現在のシーン（初期はメニュー画面
 
 void resize(int w, int h)
 {
@@ -127,6 +136,7 @@ int main(int argc, char *argv[])
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	glutCreateWindow(Title);
 	glutDisplayFunc(menudisplay); //menudisplay or field
+	//glutDisplayFunc(SceneMgr_Update); //シーンマネージャー
 	glutReshapeFunc(resize);
 	hWnd = GetActiveWindow();
 	while (EnumDisplaySettings(NULL, nMode++, &devMode)){
@@ -135,9 +145,9 @@ int main(int argc, char *argv[])
 		if (ChangeDisplaySettings(&devMode, CDS_TEST) == DISP_CHANGE_SUCCESSFUL)break;
 	}
 	ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
+	
 	glutFullScreen();
 	glutIdleFunc(menuidle);
-	//if (flagT!=3)glutIdleFunc(translateidle);
 	Init();
 	//InitMusic(); //BGM再生
 	glutMainLoop();

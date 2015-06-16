@@ -69,12 +69,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="field.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="InitMusic.h" />
     <ClInclude Include="keyBoard.h" />
     <ClInclude Include="menuDisplay.h" />
     <ClInclude Include="menuIdle.h" />
+    <ClInclude Include="MenuSelect.h" />
     <ClInclude Include="OBJ.h" />
+    <ClInclude Include="SceneMgr.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

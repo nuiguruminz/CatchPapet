@@ -1,6 +1,8 @@
+#pragma once
 //#include <GL/glut.h>
-#include <stdio.h>
+//#include <stdio.h>
 #include <mciapi.h>
+#include "MenuSelect.h"
 
 extern MCI_OPEN_PARMS mop; //音楽再生用
 
@@ -11,55 +13,53 @@ int pointnum = 0;          /* 記憶した座標の数　 */
 int rubberband = 0;        /* ラバーバンドの消去 */
 
 //グローバル変数参照
-extern float angle0;
-extern float angle1;
-extern float angle2;
+//extern float angle0;
+//extern float angle1;
+//extern float angle2;
 extern int flagT;
+extern int flagBack;
+extern int flagSpace;
 
-typedef enum{
-	eMenu_Play,        //プレイ
-	eMenu_Config,    //設定
-	eMenu_Rank,		//ランキング
-	eMenu_Easy,
-	eMenu_Normal,
-	eMenu_Hard,
-
-	eMenu_Num = 3,        //本項目の数
-} eMenu;
-/*static */ int NowSelect = eMenu_Play;    //現在の選択状態(初期は選択中)
+extern int NowSelect;    //現在の選択状態(初期は選択中)
+extern int NowScene; //現在のシーン（初期はメニュー画面）
 
 void keyboard(unsigned char key, int x, int y)
 {
 	switch (key) {
 	case ' ':
 		switch (NowSelect){//現在選択中の状態によって処理を分岐
-		case eMenu_Play://ゲーム選択中なら
-			flagT = 0;
-			//mciSendCommand(mop.wDeviceID, MCI_CLOSE, 0, 0); //音楽停止
-			// SceneMgr_ChangeScene(eScene_Game);//シーンをゲーム画面に変更
+		case eMenu_Play://プレイ選択中なら
+			flagSpace = 1;
+			NowScene = eScene_Select;
+			//SceneMgr_ChangeScene(eScene_Select);//シーンをゲーム画面に変更
 			break;
 		case eMenu_Config://設定選択中なら
 			flagT = 1;
-			//mciSendCommand(mop.wDeviceID, MCI_CLOSE, 0, 0); //音楽停止
+			NowScene = eScene_Config;//シーンを設定画面に変更
 			//SceneMgr_ChangeScene(eScene_Config);//シーンを設定画面に変更
 			break;
 		case eMenu_Rank://ランキング選択中なら
 			flagT = 2;
-			//mciSendCommand(mop.wDeviceID, MCI_CLOSE, 0, 0); //音楽停止
-			//SceneMgr_ChangeScene(eScene_Config);//シーンを設定画面に変更
+			NowScene = eScene_Rank;//シーンをランキング画面に変更
+			//SceneMgr_ChangeScene(eScene_Rank);//シーンを設定画面に変更
 			break;
 		}
 		//glutIdleFunc(Select_Now);
-	case '\010': //backspaceが押されたら
-		switch (NowSelect){
-		case eMenu_Easy:
-			flagT = 4; //backする
+	case 'p': //backspaceが押されたら
+		switch (NowScene){
+		case eScene_Menu:
 			break;
-		case eMenu_Normal:
-			flagT = 4;
+		case eScene_Select:
+			flagBack = 1; //backする
+			NowScene = eScene_Menu;
 			break;
-		case eMenu_Hard:
-			flagT = 4;
+		case eScene_Config:
+			flagBack = 1; //backする
+			NowScene = eScene_Menu;
+			break;
+		case eScene_Rank:
+			flagBack = 1; //backする
+			NowScene = eScene_Menu;
 			break;
 		}
 		break;
