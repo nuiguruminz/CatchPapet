@@ -5,6 +5,7 @@
 extern MCI_OPEN_PARMS mop; //音楽再生用
 
 #define MAXPOINTS 100      /* 記憶する点の数　　 */
+#define ESCKEY 27
 GLint point[MAXPOINTS][2]; /* 座標を記憶する配列 */
 int pointnum = 0;          /* 記憶した座標の数　 */
 int rubberband = 0;        /* ラバーバンドの消去 */
@@ -62,6 +63,7 @@ void keyboard(unsigned char key, int x, int y)
 			break;
 		}
 		break;
+	case ESCKEY:exit(0);
 	default:
 		break;
 	}
