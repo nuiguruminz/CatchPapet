@@ -48,6 +48,7 @@
 
 #pragma comment(linker, "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
 #pragma comment(lib,"glew32.lib")
+#pragma comment(lib,"winmm.lib") //音楽再生用
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <stdio.h>
@@ -57,28 +58,35 @@
 #include "menuIdle.h"
 #include "Init.h"
 #include <windows.h>
+#include <mmsystem.h> //音楽再生用
+#include "InitMusic.h"
 //#include <GL/glut.h>
+//#define WIDTH 640
+//#define HEIGHT 480
+HWND	hWnd, hDeskWnd = GetDesktopWindow();
+RECT recDisplay;
 
-#define WIDTH 640
-#define HEIGHT 480
+MCI_OPEN_PARMS mop0; //音楽再生用
+MCI_OPEN_PARMS mop; //音楽再生用
+
 //平行移動用
-float x0 = WIDTH / 2 - 300;
-float x1 = WIDTH / 2 - 300;
-float x2 = WIDTH / 2 - 300;
-float x3 = WIDTH / 2 + 300;
-float x4 = WIDTH / 2 + 300;
-float x5 = WIDTH / 2 + 300;
+float x0 = recDisplay.right / 2;
+float x1 = recDisplay.right / 2;
+float x2 = recDisplay.right / 2;
+float x3 = recDisplay.right / 2 + 1000;
+float x4 = recDisplay.right / 2 + 1000;
+float x5 = recDisplay.right / 2 + 1000;
 int flagT = 3;
+#define WCENTER recDisplay.right/2
 
 float angle0 = 0.0f;
 float angle1 = 0.0f;
 float angle2 = 0.0f;
 
 #define Title "Catch Papet"
-RECT recDisplay;
+//RECT recDisplay; //上に移動
 
 MODEL* model;
-
 
 void resize(int w, int h)
 {
@@ -90,6 +98,11 @@ void resize(int w, int h)
 
 	/* スクリーン上の表示領域をビューポートの大きさに比例させる */
 	glOrtho(-w / 200.0, w / 200.0, -h / 200.0, h / 200.0, -1.0, 1.0);
+}
+void Release(){
+	mciSendCommand(mop.wDeviceID, MCI_CLOSE, 0, 0);
+	//MessageBox(NULL, L"停止して終了します。", L"END", MB_OK);
+	PostQuitMessage(0);
 }
 
 int main(int argc, char *argv[])
@@ -109,6 +122,8 @@ int main(int argc, char *argv[])
 	glutIdleFunc(menuidle);
 	//if (flagT!=3)glutIdleFunc(translateidle);
 	Init();
+	//InitMusic(); //BGM再生
 	glutMainLoop();
+	Release();
 	return 0;
 }

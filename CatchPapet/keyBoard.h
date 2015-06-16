@@ -1,5 +1,8 @@
 //#include <GL/glut.h>
 #include <stdio.h>
+#include <mciapi.h>
+
+extern MCI_OPEN_PARMS mop; //音楽再生用
 
 #define MAXPOINTS 100      /* 記憶する点の数　　 */
 GLint point[MAXPOINTS][2]; /* 座標を記憶する配列 */
@@ -31,18 +34,33 @@ void keyboard(unsigned char key, int x, int y)
 		switch (NowSelect){//現在選択中の状態によって処理を分岐
 		case eMenu_Play://ゲーム選択中なら
 			flagT = 0;
+			//mciSendCommand(mop.wDeviceID, MCI_CLOSE, 0, 0); //音楽停止
 			// SceneMgr_ChangeScene(eScene_Game);//シーンをゲーム画面に変更
 			break;
 		case eMenu_Config://設定選択中なら
 			flagT = 1;
+			//mciSendCommand(mop.wDeviceID, MCI_CLOSE, 0, 0); //音楽停止
 			//SceneMgr_ChangeScene(eScene_Config);//シーンを設定画面に変更
 			break;
 		case eMenu_Rank://ランキング選択中なら
 			flagT = 2;
+			//mciSendCommand(mop.wDeviceID, MCI_CLOSE, 0, 0); //音楽停止
 			//SceneMgr_ChangeScene(eScene_Config);//シーンを設定画面に変更
 			break;
 		}
 		//glutIdleFunc(Select_Now);
+	case '\010': //backspaceが押されたら
+		switch (NowSelect){
+		case eMenu_Easy:
+			flagT = 4; //backする
+			break;
+		case eMenu_Normal:
+			flagT = 4;
+			break;
+		case eMenu_Hard:
+			flagT = 4;
+			break;
+		}
 		break;
 	default:
 		break;

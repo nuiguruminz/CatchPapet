@@ -70,6 +70,7 @@
   <ItemGroup>
     <ClInclude Include="field.h" />
     <ClInclude Include="Init.h" />
+    <ClInclude Include="InitMusic.h" />
     <ClInclude Include="keyBoard.h" />
     <ClInclude Include="menuDisplay.h" />
     <ClInclude Include="menuIdle.h" />
