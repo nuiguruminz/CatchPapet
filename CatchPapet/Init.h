@@ -1,4 +1,7 @@
 extern MODEL* model;
+#include <mciapi.h>
+extern MCI_OPEN_PARMS mop;
+
 void Init(){
 	glewInit();
 	glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -10,6 +13,8 @@ void Init(){
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	model = new MODEL("box.obj");
+	mop.lpstrDeviceType = "Sequencer"; //âπäyì«Ç›çûÇ›
+	mop.lpstrElementName = "sample02.mid"; //âπäyì«Ç›çûÇ›
 	glutSpecialFunc(specialkeydown);
 	glutKeyboardFunc(keyboard);
 }

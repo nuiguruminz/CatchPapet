@@ -23,6 +23,7 @@
 
 #pragma comment(linker, "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
 #pragma comment(lib,"glew32.lib")
+#pragma comment(lib,"winmm.lib") //音楽再生用
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <stdio.h>
@@ -34,26 +35,47 @@
 #include "field.h"
 #include "FieldIdle.h"
 #include <windows.h>
+#include "SceneMgr.h"
+#include "Menu.h"
+//<<<<<<< HEAD
+#include <mmsystem.h> //音楽再生用
+#include "InitMusic.h"
+//#include <GL/glut.h>
+//#define WIDTH 640
+//#define HEIGHT 480
+//HWND	hWnd, hDeskWnd = GetDesktopWindow();
+RECT recDisplay;
+
+MCI_OPEN_PARMS mop0; //音楽再生用
+MCI_OPEN_PARMS mop; //音楽再生用
+//=======
+//>>>>>>> 24f2c582fd8eb5cb861cdfb6b47224ba73cc6af7
 
 #define WIDTH 640
 #define HEIGHT 480
+#define CENTER 0 //後で修正
 //平行移動用
-float x0 = WIDTH / 2 - 300;
-float x1 = WIDTH / 2 - 300;
-float x2 = WIDTH / 2 - 300;
-float x3 = WIDTH / 2 + 300;
-float x4 = WIDTH / 2 + 300;
-float x5 = WIDTH / 2 + 300;
+#define TONARI 500
+float x0 = CENTER;
+float x1 = CENTER;
+float x2 = CENTER;
+float x3 = CENTER + TONARI;
+float x4 = CENTER + TONARI;
+float x5 = CENTER + TONARI;
 int flagT = 3;
+int flagBack = 0;
+int flagSpace = 0;
 
 float angle0 = 0.0f;
 float angle1 = 0.0f;
 float angle2 = 0.0f;
 
 #define Title "Catch Papet"
-RECT recDisplay;
 
 MODEL* model;
+
+int NowSelect = eMenu_Play;   //現在の選択状態(初期は選択中)
+int NowScene = eScene_Menu; //現在のシーン（初期はメニュー画面
 
 int absolute(int a){
 	if (a < 0)return -a;
@@ -64,7 +86,13 @@ void resize(int w, int h)
 {
 	glViewport(0, 0, w, h);
 	glLoadIdentity();
-	glOrtho(-2.0, 2.0, -2.0, 2.0, -2.0, 2.0);
+    glOrtho(-w / 200.0, w / 200.0, -h / 200.0, h / 200.0, -1.0, 1.0);
+}
+
+void Release(){
+	mciSendCommand(mop.wDeviceID, MCI_CLOSE, 0, 0);
+	//MessageBox(NULL, L"停止して終了します。", L"END", MB_OK);
+	PostQuitMessage(0);
 }
 
 int main(int argc, char *argv[])
@@ -85,6 +113,9 @@ int main(int argc, char *argv[])
 	glutCreateWindow(Title);
 
 	
+	glutDisplayFunc(menudisplay); //menudisplay or field
+	//glutDisplayFunc(SceneMgr_Update); //シーンマネージャー
+	glutReshapeFunc(resize);
 	// フルスクリーン表示
 	hWnd = GetActiveWindow();
 	while (EnumDisplaySettings(NULL, nMode++, &devMode)){
@@ -93,6 +124,7 @@ int main(int argc, char *argv[])
 		if (ChangeDisplaySettings(&devMode, CDS_TEST) == DISP_CHANGE_SUCCESSFUL)break;
 	}
 	ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
+	
 	glutFullScreen();
 
 	//マウスの非表示
@@ -104,6 +136,8 @@ int main(int argc, char *argv[])
 	glutIdleFunc(menuidle); // menuidle or field_idle
 	//if (flagT!=3)glutIdleFunc(translateidle);
 	Init();
+	//InitMusic(); //BGM再生
 	glutMainLoop();
+	Release();
 	return 0;
 }

@@ -27,12 +27,13 @@
     <ClInclude Include="menuIdle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="OBJ.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="field.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="InitMusic.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="FieldIdle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -41,5 +42,19 @@
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+=======
+    <ClInclude Include="Menu.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMgr.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuSelect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="OBJ.h">
+      <Filter>リソース ファイル</Filter>
+    </ClInclude>
+>>>>>>> 15ee7421f4c78d1fd29fcad647280e5a012bb068
   </ItemGroup>
 </Project>

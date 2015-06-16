@@ -66,12 +66,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="field.h" />
+<<<<<<< HEAD
     <ClInclude Include="FieldIdle.h" />
+=======
+    <ClInclude Include="Menu.h" />
+>>>>>>> 15ee7421f4c78d1fd29fcad647280e5a012bb068
     <ClInclude Include="Init.h" />
+    <ClInclude Include="InitMusic.h" />
     <ClInclude Include="keyBoard.h" />
     <ClInclude Include="menuDisplay.h" />
     <ClInclude Include="menuIdle.h" />
+    <ClInclude Include="MenuSelect.h" />
     <ClInclude Include="OBJ.h" />
+    <ClInclude Include="SceneMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
