@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	glutCreateWindow(Title);
 
-	/*
+	
 	// フルスクリーン表示
 	hWnd = GetActiveWindow();
 	while (EnumDisplaySettings(NULL, nMode++, &devMode)){
@@ -97,11 +97,11 @@ int main(int argc, char *argv[])
 
 	//マウスの非表示
 	glutSetCursor(GLUT_CURSOR_NONE);
-	*/
+	
 
-	glutDisplayFunc(FieldDisplay); //menudisplay or FieldDisplay
+	glutDisplayFunc(menudisplay); //menudisplay or FieldDisplay
 	glutReshapeFunc(resize);
-	//glutIdleFunc(field_idle); // menuidle or field_idle
+	glutIdleFunc(menuidle); // menuidle or field_idle
 	//if (flagT!=3)glutIdleFunc(translateidle);
 	Init();
 	glutMainLoop();
