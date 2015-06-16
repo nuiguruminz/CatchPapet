@@ -32,6 +32,7 @@ void menudisplay(void)
 		//ƒvƒŒƒCƒ{ƒ^ƒ“
 		glPushMatrix();
 		glTranslatef(x0, (HEIGHT/2), 0.0f); //•½sˆÚ“®
+		glScalef(0.2f, 0.2f, 0.2f); //Šg‘åk¬
 		gluLookAt(0.0, 0.0, 1500.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 		//glRotatef(angle0, 1.0f, 0.0f, 0.0f);//c‰ñ“]
 		glRotatef(angle0, 0.0f, 1.0f, 0.0f);//‰¡‰ñ“]

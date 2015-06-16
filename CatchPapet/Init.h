@@ -12,9 +12,9 @@ void Init(){
 	glEnable(GL_LIGHTING);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	model = new MODEL("box.obj");
+	model = new MODEL("start3.obj");
 	mop.lpstrDeviceType = "Sequencer"; //âπäyì«Ç›çûÇ›
-	mop.lpstrElementName = "sample02.mid"; //âπäyì«Ç›çûÇ›
+	mop.lpstrElementName = "sample01.mid"; //âπäyì«Ç›çûÇ›
 	glutSpecialFunc(specialkeydown);
 	glutKeyboardFunc(keyboard);
 }

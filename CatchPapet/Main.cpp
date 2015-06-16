@@ -120,16 +120,16 @@ void Release(){
 int main(int argc, char *argv[])
 {
 	////画面サイズを取得
-	//HWND	hWnd, hDeskWnd;
-	//hDeskWnd = GetDesktopWindow();
-	//GetWindowRect(hDeskWnd, &recDisplay);
+	HWND	hWnd, hDeskWnd;
+	hDeskWnd = GetDesktopWindow();
+	GetWindowRect(hDeskWnd, &recDisplay);
 
 	//glutInitWindowPosition(recDisplay.left, recDisplay.top); //表示箇所 //あとで修正sumiya
 	//glutInitWindowSize(recDisplay.right, recDisplay.bottom); //ウィンドウズサイズ //修正sumiya
 
 	int nMode = 0;
 	DEVMODE devMode;
-	HWND hWnd;
+	//HWND hWnd;
 
 
 	glutInit(&argc, argv);
