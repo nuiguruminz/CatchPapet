@@ -15,11 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Init.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -38,6 +33,16 @@
     <ClInclude Include="InitMusic.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="FieldIdle.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+=======
     <ClInclude Include="Menu.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -50,5 +55,6 @@
     <ClInclude Include="OBJ.h">
       <Filter>リソース ファイル</Filter>
     </ClInclude>
+>>>>>>> 15ee7421f4c78d1fd29fcad647280e5a012bb068
   </ItemGroup>
 </Project>
